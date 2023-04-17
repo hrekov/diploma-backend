@@ -1,0 +1,11 @@
+flake8==6.*
+fastapi==0.95.*
+uvicorn[standard]==0.21.*
+pymongo==4.3.*
+tensorflow==2.*
+celery[redis]==5.2.*
+watchdog==3.0.*
+python-multipart==0.0.*
+flower==1.2.*
+webcolors==1.13.*
+colorthief==0.2.*
