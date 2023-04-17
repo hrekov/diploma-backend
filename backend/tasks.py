@@ -4,7 +4,7 @@ from celery import Celery
 
 from backend import settings
 from backend.logger import common_logger
-from backend.services.colors import recognize_vehicle_color
+from backend.services.colors import recognize_vehicle_color, hex_to_name
 from backend.services.cropping import crop_vehicle_image
 from backend.services.number_plates import recognize_number_plate
 from backend.services.vehicle_model import recognize_vehicle_model_info
@@ -43,7 +43,7 @@ def schedule_photo_recognition(image_path: str) -> dict | None:
         **(vehicle_model_info or {}),
         'number_plate': number_plate,
         'vehicle_color_hex': color,
-        'vehicle_color_name': color,
+        'vehicle_color_name': hex_to_name(color),
     }
 
     # Remove unneeded file
