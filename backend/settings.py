@@ -9,6 +9,7 @@ _PROJECT_ROOT = Path('.').resolve()
 MEDIA_PATH = _PROJECT_ROOT / 'media'
 MONGO_CONNECTION_STRING = os.environ['MONGO_CONN_STRING']
 LOGGING_LEVEL = os.getenv('LOGGING_LEVEL', 'INFO')
+RESOURCES_FOLDER = _PROJECT_ROOT / 'resources'
 
 # Celery worker configuration
 CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']

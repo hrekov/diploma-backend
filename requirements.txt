@@ -9,3 +9,6 @@ python-multipart==0.0.*
 flower==1.2.*
 webcolors==1.13.*
 colorthief==0.2.*
+opencv-python-headless==4.7.*
+tensorflow-hub==0.13.*
+pillow==9.5.*
