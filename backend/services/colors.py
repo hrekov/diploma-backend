@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import webcolors
 from colorthief import ColorThief
 from webcolors import rgb_to_hex
