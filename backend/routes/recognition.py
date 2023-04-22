@@ -10,7 +10,7 @@ from backend.tasks import schedule_photo_recognition, app as celery_app
 router = APIRouter(prefix='/api/v1')
 
 
-@router.post('/ui/recognition')
+@router.post('/recognition')
 def recognize_user_ui_uploaded_photo(photo: UploadFile) -> dict:
     if photo.content_type not in ('image/jpeg', 'image/png'):
         raise HTTPException(400, detail=f'File type of {photo.content_type} is not supported')
@@ -22,7 +22,7 @@ def recognize_user_ui_uploaded_photo(photo: UploadFile) -> dict:
     }
 
 
-@router.get('/ui/recognition/{task_id}')
+@router.get('/recognition/{task_id}')
 def wait_for_task_result(task_id: str) -> StreamingResponse:
     def retrieve_task_result():
         task = AsyncResult(task_id, app=celery_app)
