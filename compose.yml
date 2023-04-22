@@ -1,13 +1,12 @@
 x-backend-env: &backend-env
   CELERY_BROKER_URL: redis://redis:6379
   CELERY_RESULT_BACKEND_URL: redis://redis:6379/0
-  MONGO_CONN_STRING: mongodb://root@secret:mongo/recognizer
   LOG_LEVEL: DEBUG
 
 services:
   backend:
     image: ${DIPLOMA_BACKEND_IMAGE}
-    command: sh -c './scripts/wait-for-it.sh mongo:27017 -t 30 -- uvicorn --reload backend.bootstrap:app --host 0.0.0.0 --port 8080'
+    command: uvicorn --reload backend.bootstrap:app --host 0.0.0.0 --port 8080
     restart: unless-stopped
     ports:
       - '127.0.0.1:8080:8080'
@@ -15,27 +14,7 @@ services:
       - './:/app'
     environment: *backend-env
     depends_on:
-      - mongo
       - redis
-
-  mongo:
-    image: mongo:6.0
-    restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: secret
-
-  mongo-express:
-    image: mongo-express:1.0.0-alpha
-    restart: unless-stopped
-    ports:
-      - '127.0.0.1:8081:8081'
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
-      ME_CONFIG_MONGODB_URL: mongodb://root:secret@mongo:27017/
-    depends_on:
-      - mongo
 
   redis:
     image: redis:7.0-bullseye
@@ -49,7 +28,6 @@ services:
     restart: unless-stopped
     environment: *backend-env
     depends_on:
-      - mongo
       - redis
 
   flower:
