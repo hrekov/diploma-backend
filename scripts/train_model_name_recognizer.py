@@ -8,7 +8,6 @@ from pathlib import Path
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
-from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import ModelCheckpoint
 
 
@@ -61,7 +60,7 @@ def build_model(input_shape, train_generator):
 def compile_and_train(model, train_generator, validation_generator):
     model.compile(
         loss='categorical_crossentropy',
-        optimizer=Adam(learning_rate=0.0001),
+        optimizer='rmsprop',
         metrics=['accuracy']
     )
 
